@@ -7,7 +7,6 @@ class gitlabmultirunner::install {
     'Debian': {
       include ::apt
       ensure_packages('apt-transport-apts')
-
       apt::source { 'runner_gitlab-ci-multi-runner':
         location => 'https://packages.gitlab.com/runner/gitlab-ci-multi-runner/debian/',
         release  => $::lsbdistcodename,
@@ -28,6 +27,15 @@ class gitlabmultirunner::install {
         packages    => [
           $::gitlabmultirunner::package_name,
         ],
+      }
+    }
+    'RedHat': {
+      ensure_packages( ['pygpgme', 'yum-utils'] )
+      yumrepo {'runner_gitlab-ci-multi-runner':
+        baseurl => "https://packages.gitlab.com/runner/gitlab-ci-multi-runner/el/${::operatingsystemmajrelease}/${::architecture}",
+        enabled => 1,
+        gpgkey  => 'https://packages.gitlab.com/runner/gitlab-ci-multi-runner/gpgkey',
+
       }
     }
     default: {

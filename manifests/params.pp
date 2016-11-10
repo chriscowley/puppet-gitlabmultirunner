@@ -4,6 +4,8 @@
 # It sets variables according to platform.
 #
 class gitlabmultirunner::params {
+  $gitlaburl   = undef
+  $gitlabtoken = undef
   case $::osfamily {
     'Debian': {
       $package_name = 'gitlab-ci-multi-runner'
