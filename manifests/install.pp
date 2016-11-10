@@ -6,14 +6,14 @@ class gitlabmultirunner::install {
   case $::osfamily {
     'Debian': {
       include ::apt
-      ensure_packages('apt-transport-apts')
+      ensure_packages('apt-transport-https')
       apt::source { 'runner_gitlab-ci-multi-runner':
         location => 'https://packages.gitlab.com/runner/gitlab-ci-multi-runner/debian/',
         release  => $::lsbdistcodename,
         repos    => 'main',
         key      => {
           'id'     => '1A4C919DB987D435939638B914219A96E15E78F4',
-          'source' => ' $lsbdistcodename://packages.gitlab.com/gpg.key',
+          'source' => ' https://packages.gitlab.com/gpg.key',
         },
         include  => {
           'src' => true,

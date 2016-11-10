@@ -1,0 +1,27 @@
+
+[[runner]]
+name = "runner"
+  url = "http://gitlab.prod-regards.com/ci"
+  token = "ada15b0b950b5ff040166485f8c97b"
+  executor = "docker"
+  [runners.docker]
+    tls_verify = false
+    image = "debian:jessie"
+    privileged = false
+    disable_cache = false
+    volumes = ["/cache", "/opt/shared-composer:/root/.composer:rw"]
+  [runners.cache]
+
+[[runners]]
+  name = "maze"
+  url = "http://gitlab.prod-regards.com/ci"
+  token = "265eb49e2baab2b8b1817f5e78c45e"
+  executor = "docker"
+  [runners.docker]
+    tls_verify = false
+    image = "docker:latest"
+    privileged = true
+    disable_cache = false
+    volumes = ["/cache"]
+  [runners.cache]
+    Insecure = false
